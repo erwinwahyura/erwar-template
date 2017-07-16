@@ -11,7 +11,10 @@ var todoSchema = new Schema({
     required : [true, 'description is required! please fill it!']
   },
   createdAt: {
-    type : String
+    type : Date
+  },
+  updatedAt: {
+    type : Date
   },
   completed: {
     type : Boolean,
