@@ -18,7 +18,7 @@ var signIn = function(req, res, next) {
       .then(result => {
         if(result) {
           var token = jwt.sign({id: user._id, username: user.username}, process.env.SECRET);
-          res.send({token, username: user.username})
+          res.send({token, id: user._id, name: user.username})
         } else {
           res.send({ msg: 'Incorrect password' });
         }
@@ -67,7 +67,7 @@ var userAuth = function(req, res, next) {
   console.log(token);
   if(token) {
     jwt.verify(token, process.env.SECRET, (err, decoded) => {
-      console.log('ini decode nya --->>',decoded);
+      console.log('ini decode nya --->>',decoded.id);
       console.log('ini creatornya', req.body.creator);
       if(decoded.id == req.body.creator) {
         next()
