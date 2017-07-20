@@ -5,34 +5,17 @@ const m_todo = require('../models/m_todo')
 
 //check with postman done
 var create = function(req, res) {
-  if (req.body.creator) {
-    console.log('bodynya si creator: ',req.body.creator);
-    let id = req.body.creator
-
-    m_todo.findById(id, function(err, result) {
-      if (!err) {
-        console.log('data si creator :', result);
-        todo = new m_todo({
-          title : req.body.title,
-          description : req.body.description,
-          createdAt : new Date(),
-          updatedAt : new Date(),
-          completed : false,
-          creator : req.body.creator
-        })
-        todo.save(function(err, result) {
-          err ? res.status(500).send(err) : res.status(200).send(result)
-        })
-      } else {
-        res.status(500).send(err)
-      }
-
-    })
-
-  } else {
-    console.log('login pls');
-  }
-
+  todo = new m_todo({
+    title : req.body.title,
+    description : req.body.description,
+    createdAt : new Date(),
+    updatedAt : new Date(),
+    completed : false,
+    creator : req.body.creator
+  })
+  todo.save(function(err, result) {
+    err ? res.status(500).send(err) : res.status(200).send(result)
+  })
 }
 
 //check with postman done
@@ -58,11 +41,9 @@ var getById = function(req, res) {
 
 //done
 var remove = function(req, res) {
-  let _id = req.params._id
-  console.log(_id);
-  let query = {_id:_id}
-  m_todo.remove(query, function(err, result) {
-    if(!err) res.send(`${result}\n todo deleted!`)
+  m_todo.remove({_id: req.params._id}, function(err, result) {
+    console.log('hai');
+    if(!err) res.send("Success")
     else res.send(err.message)
   })
 }

@@ -23,6 +23,6 @@ router.get('/api/todos', c_todo.getAll)
 router.get('/api/todos/:_id', c_todo.getById)
 router.post('/api/todos', auth.userAuth, c_todo.create)
 router.put('/api/todos/:_id', auth.userAuth, c_todo.updates)
-router.delete('/api/todos/:_id', auth.userAuth, c_todo.remove)
+router.delete('/api/todos/:_id', c_todo.remove)
 
 module.exports = router

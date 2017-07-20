@@ -67,8 +67,6 @@ var userAuth = function(req, res, next) {
   console.log(token);
   if(token) {
     jwt.verify(token, process.env.SECRET, (err, decoded) => {
-      console.log('ini decode nya --->>',decoded.id);
-      console.log('ini creatornya', req.body.creator);
       if(decoded.id == req.body.creator) {
         next()
       } else {
