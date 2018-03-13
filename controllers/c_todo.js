@@ -37,8 +37,10 @@ var create = function(req, res) {
 
 //check with postman done
 var getAll = function(req, res) {
-  m_todo.find({}, function(err, result) {
-    if (!err) res.send(result)
+  m_todo.find({})
+  .populate('creator')
+  .exec(function(err, result) {
+    if(!err) res.send(result)
     else res.send(err.message)
   })
 }
@@ -46,20 +48,19 @@ var getAll = function(req, res) {
 //done
 var getById = function(req, res) {
   let _id = req.params._id
-  m_todo.findById(_id, function(err, result) {
-    console.log(result);
-    if(!err) res.send(result)
-    else res.send(err.message)
+  m_todo.findById({_id:_id})
+    .populate('creator')
+    .exec(function(err, result) {
+      if(!err) res.send(result)
+      else res.send(err.message)
   })
 }
 
 //done
 var remove = function(req, res) {
-  let _id = req.params._id
-  console.log(_id);
-  let query = {_id:_id}
-  m_todo.remove(query, function(err, result) {
-    if(!err) res.send(`${result}\n todo deleted!`)
+  m_todo.remove({_id: req.params._id}, function(err, result) {
+    console.log('hai');
+    if(!err) res.send("Success")
     else res.send(err.message)
   })
 }

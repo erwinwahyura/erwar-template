@@ -32,7 +32,7 @@ var delete_user = function(req, res, next) {
 }
 
 var getUserById = function(req, res ) {
-  let id = req.params._id
+  var id = req.params._id
   m_user.findById({_id:id}, function(err, result) {
     err ? res.status(500).send(err) :res.status(200).send(result)
   })
